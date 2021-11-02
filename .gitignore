@@ -1,0 +1,8 @@
+# the data folder
+Data/
+
+# The trained model
+Model/
+
+# The Fine tuned Model
+Tuned/
