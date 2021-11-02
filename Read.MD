@@ -25,14 +25,14 @@ I used vscode to open my folder within a docker container. Once my images have b
 After attempting to use transfer learning with a few [pretrained keras models](https://keras.io/api/applications/), I came to fast success with my training accuracy by using the [Xception](https://arxiv.org/abs/1610.02357) model. The other perk about this model is that it was small enough to fine tune (with all parameters trainable) on the available GPU memory of my system (more on this in part 6). 
 
 My tranfer learning model had the following structure:
-![alt text](https://github.com/MrDaubinet/epiuse-interview-machine-learning/blob/master/Images/model_summary.png?raw=true)
+![alt text](https://github.com/MrDaubinet/epiuse-interview-machine-learning/blob/main/Images/model_summary.png?raw=true)
 
 ## Part 2 - Dataset
 I chose the **Dog Breed Identification** dataset which can be manually downloaded from Kaggle [here](https://www.kaggle.com/c/dog-breed-identification/data). I chose this dataset for multiple reasons. Its large, with over 10 000 training samples. Its thouroughly tested for this task, being linked to a competition which has over 1200 entries from different users. It's cool, you can go take images of you own dogs and see if the trained model works. 
 
 The Dog Breed Dataset has 10 222 training samples, 10 357 test sample for 120 categories. However, due to the nature of this dataset, the test samples are not labled and therefore will not be used to measure model performance. Instead, I chose to create a keras ImageDataGenerator from training dataset, with this data split into training and validation at 80:20 ratio. 
 
-![alt text](https://github.com/MrDaubinet/epiuse-interview-machine-learning/blob/master/Images/training_data.png?raw=true)
+![alt text](https://github.com/MrDaubinet/epiuse-interview-machine-learning/blob/main/Images/training_data.png?raw=true)
 
 ## Part 3 - Data prep
 
@@ -86,20 +86,22 @@ img_augmentation = Sequential(
 )
 ```
 
-![alt text](https://github.com/MrDaubinet/epiuse-interview-machine-learning/blob/master/Images/augmentation_data.png?raw=true)
+![alt text](https://github.com/MrDaubinet/epiuse-interview-machine-learning/blob/main/Images/augmentation_data.png?raw=true)
 
 ## Part 5 - Training & Test Results
 The tranfer learning model learnt to classify my data, fairly accuratly, from early on. 
 
-![alt text](https://github.com/MrDaubinet/epiuse-interview-machine-learning/blob/master/Images/training_epochs.png?raw=true)
+![alt text](https://github.com/MrDaubinet/epiuse-interview-machine-learning/blob/main/Images/training_epochs.png?raw=true)
 
 I set my training epochs to a max of 30, however my model stoped training after 15 epochs due to an early stopping restriction which was imposed following 10 epochs with no gains in the validation loss. My model ended training with a training accuracy of 96% and a validation accuracy of 89%. For the purposes of this assignment, I treated validation accuracy the same as testing accuracy. I made no model selection choices based on the validation accuracy and I gathered no further testing results.
 
-![alt text](https://github.com/MrDaubinet/epiuse-interview-machine-learning/blob/master/Images/model_accuracy.png?raw=true)
+![alt text](https://github.com/MrDaubinet/epiuse-interview-machine-learning/blob/main/Images/model_accuracy.png?raw=true)
 
 ## Part 6 - Fine Tuning
 In an attempt to make the model more accurate against my validation/test set. I unfroze all model layers and applied the SGD optimizer with a low learning rate for a further 10 epochs. Unfortunately, this only resulted in the model becoming more over fit, with an increase in the training accuracy and a decrease in the validation / test accuracy.
 
-![alt text](https://github.com/MrDaubinet/epiuse-interview-machine-learning/blob/master/Images/fine_tuning.png?raw=true)
+![alt text](https://github.com/MrDaubinet/epiuse-interview-machine-learning/blob/main/Images/fine_tuning.png?raw=true)
 
 ## Jupyter Notebook
+
+Check [here!](https://nbviewer.org/github/MrDaubinet/epiuse-interview-machine-learning/blob/main/Dog%20Breed%20Classifier.ipynb) for the notebook
